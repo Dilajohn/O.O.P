@@ -178,31 +178,82 @@
 
 #  >>>> Data Abstraction <<<<
 
-from abc import ABC, abstractmethod
+# from abc import ABC, abstractmethod
 
-class Dog(ABC):
-    def __init__(self, name):
-        self.name = name
+# class Dog(ABC):
+    # def __init__(self, name):
+        # self.name = name
 
-    @abstractmethod
-    def sound(self): # Abstract Method
-        pass
+    # @abstractmethod
+    # def sound(self): # Abstract Method
+        # pass
 
-    def display_name(self):  # Concrete Method
-        print(f"Dog's Name: {self.name}")
+    # def display_name(self):  # Concrete Method
+        # print(f"Dog's Name: {self.name}")
 
 
-class Labrador(Dog):  # Partial Abstraction
-    def sound(self):
-        print("Labrador Woof!")
+# class Labrador(Dog):  # Partial Abstraction
+    # def sound(self):
+        # print("Labrador Woof!")
 
-class Beagle(Dog):  # Partial Abstraction
-    def sound(self):
-        print("Beagle Bark!")
+# class Beagle(Dog):  # Partial Abstraction
+    # def sound(self):
+        # print("Beagle Bark!")
 
-dogs = [Labrador("Buddy"), Beagle("Charlie")]
-for dog in dogs:
-    dog.display_name() # Calls concrete method
-    dog.sound() # Calls implemented abstract method
+# dogs = [Labrador("Buddy"), Beagle("Charlie")]
+# for dog in dogs:
+    # dog.display_name() # Calls concrete method
+    # dog.sound() # Calls implemented abstract method
+
+
+
+# >>>EXAMPLE 1
+
+# class Dog:
+    # def __init__(self, name, breed, age):
+        # self.name = name
+        # self.breed = breed
+        # self.age = age
+
+    # def say_name(self):
+        # print(f"WOOF! {self.name}! Woof!")
+
+    # def birthday(self):
+        # self.age += 1
+        # print(f"{self.name} you are now {self.age}! Goodboy ! ")
+
+    # def get_age(self):
+        # return self.age
+    
+# my_dog = Dog("Gaspode", "Terrier", 10)
+
+# print("My dog's age is", my_dog.get_age())
+# my_dog.say_name()
+# my_dog.birthday()
+# print("My dog's age is now", my_dog.get_age())
+
+# >>>>>EXAMPLE 2
+class PasswordManager:
+    def __init__(self,min_password_len=8):
+        self._password = None
+        self._min_password_len = min_password_len
+
+    def set_password(self, password):
+        if self._validate(password):
+            self._password = password
+            print("password set successfully")
+        else:
+            print(f"Password must be atleast {self._min_password_len} characters long.")
+
+    def _validate(self, password):
+        return len(password) >= self._min_password_len
+    
+gmail_password = PasswordManager()
+gmail_password.set_password("ThisisAlONgPasswordWithSomeNumbers1234")
+
+uwo_password = PasswordManager(10)
+uwo_password.set_password("TooShort")
 
         
+
+     
