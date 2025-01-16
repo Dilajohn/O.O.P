@@ -388,3 +388,20 @@ Explanation:
 
 >Partial Abstraction: The Dog class has both abstract (sound) and concrete (display_name) methods.
 >Why Use It: Abstraction ensures consistency in derived classes by enforcing the implementation of abstract methods.  """  
+
+
+
+""" Q & A 
+
+What is super() in Python?
+
+super() is used to call methods of a superclass (parent class) from a subclass (child class).
+It returns a proxy object that delegates method calls to the superclass. This is useful for accessing inherited
+methods that have been overridden in a subclass.
+"""
+
+class ChildClass(ParentClass): # type: ignore
+    def __init__(self, arg1, arg2):
+        super().__init__(arg1)  # Calls the __init__() method of the ParentClass
+        self.arg2 = arg2
+
