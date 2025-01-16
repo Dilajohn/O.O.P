@@ -115,8 +115,8 @@ print(dog1.name)
 """
 Explanation:
 
-.__init__: Special method used for initialization.
-.self.name and self.age: Instance attributes initialized in the constructor.
+>> __init__: Special method used for initialization.
+>> self.name and self.age: Instance attributes initialized in the constructor.
 
 
 *** Class and Instance Variables
@@ -175,6 +175,7 @@ Explanation:
   impact dog2.
 
 *** Python Inheritance
+
 Inheritance allows a class (child class) to acquire properties and methods of another class (parent class). 
 It supports hierarchical classification and promotes code reuse.
 
@@ -249,6 +250,7 @@ It can be achieved through method overriding or overloading.
 
 # Parent Class
 class Dog:
+
     def sound(self):
         print("dog sound")  # Default implementation
 
@@ -291,7 +293,7 @@ Explanation:
  to handle varying numbers of parameters.
 .Different behaviors (adding two or three numbers) are achieved based on how the method is called.
 
-*** Python Encapsulation
+>>>>>> Python Encapsulation  <<<<<<
 
 Encapsulation is the bundling of data (attributes) and methods (functions) within a class, restricting access
  to some components to control interactions.
