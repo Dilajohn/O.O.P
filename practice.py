@@ -233,26 +233,40 @@
 # print("My dog's age is now", my_dog.get_age())
 
 # >>>>>EXAMPLE 2
-class PasswordManager:
-    def __init__(self,min_password_len=8):
-        self._password = None
-        self._min_password_len = min_password_len
+# class PasswordManager:
+    # def __init__(self,min_password_len=8):
+        # self._password = None
+        # self._min_password_len = min_password_len
 
-    def set_password(self, password):
-        if self._validate(password):
-            self._password = password
-            print("password set successfully")
-        else:
-            print(f"Password must be atleast {self._min_password_len} characters long.")
+    # def set_password(self, password):
+        # if self._validate(password):
+            # self._password = password
+            # print("password set successfully")
+        # else:
+            # print(f"Password must be atleast {self._min_password_len} characters long.")
 
-    def _validate(self, password):
-        return len(password) >= self._min_password_len
+    # def _validate(self, password):
+        # return len(password) >= self._min_password_len
     
-gmail_password = PasswordManager()
-gmail_password.set_password("ThisisAlONgPasswordWithSomeNumbers1234")
+# gmail_password = PasswordManager()
+# gmail_password.set_password("ThisisAlONgPasswordWithSomeNumbers1234")
 
-uwo_password = PasswordManager(10)
-uwo_password.set_password("TooShort")
+# uwo_password = PasswordManager(10)
+# uwo_password.set_password("TooShort")
+
+# Static and Class Methods
+
+class Utils:
+    @staticmethod
+    def add(a, b):
+        return a + b
+
+    @classmethod
+    def description(cls):
+        return f"This is the {cls.__name__} class."
+
+print(Utils.add(5, 10))
+print(Utils.description())
 
         
 

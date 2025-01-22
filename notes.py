@@ -186,7 +186,7 @@ It supports hierarchical classification and promotes code reuse.
 .Multilevel Inheritance: A child class inherits from a parent class, which in turn inherits from another class.
 .Hierarchical Inheritance: Multiple child classes inherit from a single parent class.
 .Hybrid Inheritance: A combination of two or more types of inheritance. """
-
+# example 1
 # Single Inheritance
 class Dog:
     def __init__(self, name):
@@ -227,6 +227,30 @@ retriever.display_name()
 retriever.greet()
 retriever.sound()
 
+# example 2
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        return f"{self.name} makes a sound."
+
+# Child class inherits from Animal
+class Dog(Animal):
+    def speak(self):
+        return f"{self.name} says Woof!"
+
+class Cat(Animal):
+    def speak(self):
+        return f"{self.name} says Meow!"
+
+# Using inheritance
+dog = Dog("Buddy")
+cat = Cat("Whiskers")
+
+print(dog.speak())  # Output: Buddy says Woof!
+print(cat.speak())  # Output: Whiskers says Meow!
+
 """
 Explanation:
 
@@ -247,7 +271,7 @@ It can be achieved through method overriding or overloading.
 .Run-Time Polymorphism: This type of polymorphism is determined during the execution of the program. 
  It occurs when a subclass provides a specific implementation for a method already defined in its parent class,
     commonly known as method overriding. """
-
+# example 1
 # Parent Class
 class Dog:
 
@@ -279,8 +303,55 @@ calc = Calculator()
 print(calc.add(5, 10))  # Two arguments
 print(calc.add(5, 10, 15))  # Three arguments
 
-"""
-Explanation:
+
+# example 2
+
+class Bird:
+    def fly(self):
+        return "Birds can fly."
+
+class Penguin(Bird):
+    def fly(self):
+        return "Penguins cannot fly."
+
+# Polymorphism in action
+bird = Bird()
+penguin = Penguin()
+
+print(bird.fly())     # Output: Birds can fly.
+print(penguin.fly())  # Output: Penguins cannot fly.
+
+"""example 3 ////(Method Overloading (Simulated)
+Python doesn’t support true method overloading (same method name with different parameters),
+ but it can be simulated with default arguments or *args.) """
+
+class Math:
+    def add(self, a, b, c=0):
+        return a + b + c
+
+math = Math()
+print(math.add(5, 10))       # Output: 15
+print(math.add(5, 10, 15))  # Output: 30
+
+""" Example 4>>> Method Overriding
+A child class provides a specific implementation of a method already defined in the parent class"""
+
+class Parent:
+    def greet(self):
+        return "Hello from the Parent class."
+
+class Child(Parent):
+    def greet(self):
+        return "Hello from the Child class."
+
+# Overriding in action
+parent = Parent()
+child = Child()
+
+print(parent.greet())  # Output: Hello from the Parent class.
+print(child.greet())   # Output: Hello from the Child class.
+
+""" Explanation:
 
 1. Run-Time Polymorphism:
 
@@ -305,7 +376,7 @@ A class is an example of encapsulation as it encapsulates all the data that is m
 .Public Members: Accessible from anywhere.
 .Protected Members: Accessible within the class and its subclasses.
 .Private Members: Accessible only within the class."""
-
+# example 1
 class Dog:
     def __init__(self, name, breed, age):
         self.name = name  # Public attribute
@@ -342,6 +413,31 @@ print(dog.get_age())
 dog.set_age(5)
 print(dog.get_info())
 
+
+# example 2
+class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.__balance = balance  # Private attribute
+
+    def deposit(self, amount):
+        self.__balance += amount
+        return f"Deposited {amount}. New balance: {self.__balance}"
+
+    def withdraw(self, amount):
+        if amount > self.__balance:
+            return "Insufficient funds!"
+        self.__balance -= amount
+        return f"Withdrew {amount}. New balance: {self.__balance}"
+
+# Access control
+account = BankAccount("Alice", 1000)
+print(account.deposit(500))   # Output: Deposited 500. New balance: 1500
+print(account.withdraw(2000)) # Output: Insufficient funds!
+
+# Attempt to directly access private attribute
+# print(account.__balance)    # AttributeError
+
 """
 Explanation:
 
@@ -358,6 +454,7 @@ Abstraction hides the internal implementation details while exposing only the ne
 .Partial Abstraction: Abstract class contains both abstract and concrete methods.
 .Full Abstraction: Abstract class contains only abstract methods (like interfaces). """
 
+# example 1
 from abc import ABC, abstractmethod
 
 class Dog(ABC):  # Abstract Class
@@ -385,12 +482,63 @@ for dog in dogs:
     dog.display_name()  # Calls concrete method
     dog.sound()  # Calls implemented abstract method
 
+# example 2
+
+from abc import ABC, abstractmethod
+
+class Shape(ABC):  # Abstract class
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+        pass
+
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+
+# Cannot instantiate abstract class
+# shape = Shape()  # TypeError
+
+rectangle = Rectangle(10, 20)
+print(rectangle.area())       # Output: 200
+print(rectangle.perimeter())  # Output: 60
+
 """
 Explanation:
 
 >Partial Abstraction: The Dog class has both abstract (sound) and concrete (display_name) methods.
 >Why Use It: Abstraction ensures consistency in derived classes by enforcing the implementation of abstract methods.  """  
 
+"""
+>>>> Static and Class Methods
+
+Static methods (@staticmethod) don’t operate on instance or class-level data.
+Class methods (@classmethod) operate on class-level data.
+"""
+class Utils:
+    @staticmethod
+    def add(a, b):
+        return a + b
+
+    @classmethod
+    def description(cls):
+        return f"This is the {cls.__name__} class."
+
+# Static method
+print(Utils.add(5, 10))       # Output: 15
+
+# Class method
+print(Utils.description())    # Output: This is the Utils class.
 
 
 """ Q & A 
