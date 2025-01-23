@@ -19,10 +19,20 @@ class LibraryGUI:
 
         # Style and theme
         self.style = ttk.Style(self.window)
-        self.style.theme_use("clam")  # Try 'clam', 'default', 'alt', 'classic'
+        self.style.theme_use("clam")
 
+        # Custom colors
+        self.style.configure("TFrame", background="#f5f5f5")
+        self.style.configure("TLabel", background="#f5f5f5", font=("Arial", 12))
+        self.style.configure("TButton", font=("Arial", 10), padding=5)
 
-        # Start with login screen
+        # Load icons
+        self.book_icon = tk.PhotoImage(file="icons/book.png")  # Replace with your icon path
+        self.history_icon = tk.PhotoImage(file="icons/history.png")
+        self.admin_icon = tk.PhotoImage(file="icons/admin.png")
+        self.logout_icon = tk.PhotoImage(file="icons/logout.png")
+
+        # Show login screen
         self.show_login_screen()
 
         self.window.mainloop()
@@ -36,8 +46,8 @@ class LibraryGUI:
         frame = ttk.Frame(self.window, padding=20)
         frame.pack(expand=True)
 
-        ttk.Label(frame, text="Library Management System", font=("Arial", 24)).pack(pady=10)
-        ttk.Label(frame, text="Login", font=("Arial", 16)).pack(pady=5)
+        ttk.Label(frame, text="Library Management System", font=("Arial", 24), background="#f5f5f5").pack(pady=10)
+        ttk.Label(frame, text="Login", font=("Arial", 16), background="#f5f5f5").pack(pady=5)
 
         ttk.Label(frame, text="Name:").pack(pady=5)
         self.name_entry = ttk.Entry(frame, width=30)
@@ -45,8 +55,6 @@ class LibraryGUI:
 
         ttk.Button(frame, text="Login", command=self.login_user).pack(pady=10)
         ttk.Button(frame, text="Register", command=self.register_user).pack(pady=5)
-
-        
 
     def login_user(self):
         name = self.name_entry.get()
@@ -82,25 +90,26 @@ class LibraryGUI:
         notebook = ttk.Notebook(self.window)
         notebook.pack(fill="both", expand=True)
 
-        # Add tabs
+        # Add tabs with icons
         self.create_books_tab(notebook)
         self.create_history_tab(notebook)
         if self.current_user.is_admin:
             self.create_admin_tab(notebook)
 
         # Logout button
-        logout_button = ttk.Button(self.window, text="Logout", command=self.show_login_screen)
+        logout_button = ttk.Button(
+            self.window, text="Logout", image=self.logout_icon, compound="left", command=self.show_login_screen
+        )
         logout_button.pack(pady=10)
 
-       
     def create_books_tab(self, notebook):
         books_tab = ttk.Frame(notebook, padding=10)
-        notebook.add(books_tab, text="Books")
+        notebook.add(books_tab, text="Books", image=self.book_icon, compound="left")
 
         ttk.Label(books_tab, text="Books Available", font=("Arial", 16)).pack(pady=10)
 
         # Book list
-        book_list = tk.Text(books_tab, height=20, width=70)
+        book_list = tk.Text(books_tab, height=20, width=70, bg="#e8e8e8")
         book_list.pack(pady=10)
         book_list.insert("1.0", "\n".join(str(book) for book in self.library.books))
         book_list.configure(state="disabled")
@@ -114,11 +123,11 @@ class LibraryGUI:
 
     def create_history_tab(self, notebook):
         history_tab = ttk.Frame(notebook, padding=10)
-        notebook.add(history_tab, text="Borrowing History")
+        notebook.add(history_tab, text="History", image=self.history_icon, compound="left")
 
         ttk.Label(history_tab, text="Borrowing History", font=("Arial", 16)).pack(pady=10)
 
-        history_text = tk.Text(history_tab, height=20, width=70)
+        history_text = tk.Text(history_tab, height=20, width=70, bg="#e8e8e8")
         history_text.pack(pady=10)
 
         history = "\n".join(
@@ -130,7 +139,7 @@ class LibraryGUI:
 
     def create_admin_tab(self, notebook):
         admin_tab = ttk.Frame(notebook, padding=10)
-        notebook.add(admin_tab, text="Admin Options")
+        notebook.add(admin_tab, text="Admin", image=self.admin_icon, compound="left")
 
         ttk.Label(admin_tab, text="Admin Options", font=("Arial", 16)).pack(pady=10)
 
@@ -138,7 +147,6 @@ class LibraryGUI:
         ttk.Button(admin_tab, text="Add Book", command=self.add_book).pack(pady=5)
         ttk.Button(admin_tab, text="Remove Book", command=self.remove_book).pack(pady=5)
         ttk.Button(admin_tab, text="View All Users", command=self.view_users).pack(pady=5)
-
 
     def search_books(self):
         keyword = askstring("Search Books", "Enter a title or author to search:")
@@ -161,7 +169,6 @@ class LibraryGUI:
             self.library.return_book(title, self.current_user)
         
    
-
     def add_book(self):
         title = askstring("Add Book", "Enter the title of the book:")
         author = askstring("Add Book", "Enter the author of the book:")
@@ -188,7 +195,7 @@ library = Library("City Library")
 library.load_data()
 
 admin = User("Admin", is_admin=True)
-user = User("Jonathan")
+
 
 if admin not in library.users:
     library.users.append(admin)
