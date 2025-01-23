@@ -3,6 +3,146 @@
         {
             "title": "1984",
             "author": "George Orwell",
+            "is_borrowed": true,
+            "borrowed_date": "2025-01-23T01:42:11.753007",
+            "due_date": "2025-01-30T01:42:11.753007"
+        },
+        {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "1984",
+            "author": "George Orwell",
+            "is_borrowed": true,
+            "borrowed_date": "2025-01-23T01:42:41.303702",
+            "due_date": "2025-01-30T01:42:41.303702"
+        },
+        {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "1984",
+            "author": "George Orwell",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "1984",
+            "author": "George Orwell",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "1984",
+            "author": "George Orwell",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "1984",
+            "author": "George Orwell",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "1984",
+            "author": "George Orwell",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "1984",
+            "author": "George Orwell",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "1984",
+            "author": "George Orwell",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "1984",
+            "author": "George Orwell",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "is_borrowed": false,
+            "borrowed_date": null,
+            "due_date": null
+        },
+        {
+            "title": "1984",
+            "author": "George Orwell",
             "is_borrowed": false,
             "borrowed_date": null,
             "due_date": null
@@ -93,6 +233,146 @@
         },
         {
             "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": [
+                {
+                    "title": "1984",
+                    "author": "George Orwell",
+                    "is_borrowed": true,
+                    "borrowed_date": "2025-01-23T01:42:11.753007",
+                    "due_date": "2025-01-30T01:42:11.753007"
+                },
+                {
+                    "title": "1984",
+                    "author": "George Orwell",
+                    "is_borrowed": true,
+                    "borrowed_date": "2025-01-23T01:42:41.303702",
+                    "due_date": "2025-01-30T01:42:41.303702"
+                }
+            ]
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "pirez",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Jonathan",
+            "is_admin": false,
+            "borrowed_books": []
+        },
+        {
+            "name": "Admin",
+            "is_admin": true,
+            "borrowed_books": []
+        },
+        {
+            "name": "Atim Ruth",
             "is_admin": false,
             "borrowed_books": []
         },

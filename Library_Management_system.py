@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import messagebox
 from tkinter.simpledialog import askstring
 
@@ -13,13 +14,16 @@ class LibraryGUI:
         # Create main window
         self.window = tk.Tk()
         self.window.title("Library Management System")
-        self.window.geometry("600x400")
+        self.window.geometry("800x600")
+        self.window.resizable(False, False)
+
+        # Style and theme
+        self.style = ttk.Style(self.window)
+        self.style.theme_use("clam")  # Try 'clam', 'default', 'alt', 'classic'
+
 
         # Start with login screen
         self.show_login_screen()
-
-        # Create frames
-        self.create_main_frame()
 
         self.window.mainloop()
 
@@ -29,22 +33,27 @@ class LibraryGUI:
             widget.destroy()
 
         # Login screen layout
-        tk.Label(self.window, text="Library Management System", font=("Arial", 20)).pack(pady=10)
-        tk.Label(self.window, text="Login", font=("Arial", 16)).pack(pady=5)
+        frame = ttk.Frame(self.window, padding=20)
+        frame.pack(expand=True)
 
-        tk.Label(self.window, text="Name:").pack(pady=5)
-        self.name_entry = tk.Entry(self.window)
+        ttk.Label(frame, text="Library Management System", font=("Arial", 24)).pack(pady=10)
+        ttk.Label(frame, text="Login", font=("Arial", 16)).pack(pady=5)
+
+        ttk.Label(frame, text="Name:").pack(pady=5)
+        self.name_entry = ttk.Entry(frame, width=30)
         self.name_entry.pack(pady=5)
 
-        tk.Button(self.window, text="Login", command=self.login_user).pack(pady=10)
-        tk.Button(self.window, text="Register", command=self.register_user).pack(pady=5)
+        ttk.Button(frame, text="Login", command=self.login_user).pack(pady=10)
+        ttk.Button(frame, text="Register", command=self.register_user).pack(pady=5)
+
+        
 
     def login_user(self):
         name = self.name_entry.get()
         for user in self.library.users:
             if user.name.lower() == name.lower():
                 self.current_user = user
-                self.create_main_frame()
+                self.create_main_tabs()
                 return
         messagebox.showerror("Error", f"User '{name}' not found. Please register first.")
 
@@ -64,39 +73,72 @@ class LibraryGUI:
         self.library.save_data()
         messagebox.showinfo("Success", f"User '{name}' registered successfully! You can now log in.")
 
-    def create_main_frame(self):
+    def create_main_tabs(self):
         # Clear existing widgets
         for widget in self.window.winfo_children():
             widget.destroy()
 
-        # Main menu
-        tk.Label(self.window, text=f"Welcome, {self.current_user.name}!", font=("Arial", 16)).pack(pady=10)
+        # Create tabbed interface
+        notebook = ttk.Notebook(self.window)
+        notebook.pack(fill="both", expand=True)
 
-        # Buttons
-        tk.Button(self.window, text="View All Books", command=self.view_books).pack(pady=5)
-        tk.Button(self.window, text="Search Books", command=self.search_books).pack(pady=5)
-        tk.Button(self.window, text="Borrow Books", command=self.borrow_books).pack(pady=5)
-        tk.Button(self.window, text="Return Books", command=self.return_books).pack(pady=5)
-
-
+        # Add tabs
+        self.create_books_tab(notebook)
+        self.create_history_tab(notebook)
         if self.current_user.is_admin:
-            tk.Button(self.window, text="Admin Options", command=self.admin_options).pack(pady=5)
+            self.create_admin_tab(notebook)
 
-        tk.Button(self.window, text="View Borrowing History", command=self.view_borrowing_history).pack(pady=5)
-        tk.Button(self.window, text="Logout", command=self.show_login_screen).pack(pady=10)
+        # Logout button
+        logout_button = ttk.Button(self.window, text="Logout", command=self.show_login_screen)
+        logout_button.pack(pady=10)
 
+       
+    def create_books_tab(self, notebook):
+        books_tab = ttk.Frame(notebook, padding=10)
+        notebook.add(books_tab, text="Books")
 
-    def view_borrowing_history(self):
+        ttk.Label(books_tab, text="Books Available", font=("Arial", 16)).pack(pady=10)
+
+        # Book list
+        book_list = tk.Text(books_tab, height=20, width=70)
+        book_list.pack(pady=10)
+        book_list.insert("1.0", "\n".join(str(book) for book in self.library.books))
+        book_list.configure(state="disabled")
+
+        # Action buttons
+        actions_frame = ttk.Frame(books_tab)
+        actions_frame.pack(pady=10)
+
+        ttk.Button(actions_frame, text="Borrow Book", command=self.borrow_books).grid(row=0, column=0, padx=5)
+        ttk.Button(actions_frame, text="Return Book", command=self.return_books).grid(row=0, column=1, padx=5)
+
+    def create_history_tab(self, notebook):
+        history_tab = ttk.Frame(notebook, padding=10)
+        notebook.add(history_tab, text="Borrowing History")
+
+        ttk.Label(history_tab, text="Borrowing History", font=("Arial", 16)).pack(pady=10)
+
+        history_text = tk.Text(history_tab, height=20, width=70)
+        history_text.pack(pady=10)
+
         history = "\n".join(
             f"'{book.title}' by {book.author} - Borrowed: {book.borrowed_date}, Due: {book.due_date}"
             for book in self.current_user.borrowed_books
         )
-        self.display_message(history if history else "No borrowing history found.")
+        history_text.insert("1.0", history if history else "No borrowing history found.")
+        history_text.configure(state="disabled")
 
+    def create_admin_tab(self, notebook):
+        admin_tab = ttk.Frame(notebook, padding=10)
+        notebook.add(admin_tab, text="Admin Options")
 
+        ttk.Label(admin_tab, text="Admin Options", font=("Arial", 16)).pack(pady=10)
 
-    def view_books(self):
-        self.display_message("\n".join(str(book) for book in self.library.books))
+        # Admin actions
+        ttk.Button(admin_tab, text="Add Book", command=self.add_book).pack(pady=5)
+        ttk.Button(admin_tab, text="Remove Book", command=self.remove_book).pack(pady=5)
+        ttk.Button(admin_tab, text="View All Users", command=self.view_users).pack(pady=5)
+
 
     def search_books(self):
         keyword = askstring("Search Books", "Enter a title or author to search:")
@@ -111,63 +153,34 @@ class LibraryGUI:
     def borrow_books(self):
         title = askstring("Borrow Book", "Enter the title of the book to borrow:") 
         if title:
-            user = self.select_user()
-            if user:
-                self.library.borrow_book(title, user)
+            self.library.borrow_book(title, self.current_user)
 
     def return_books(self):
         title = askstring("Return Book", "Enter the title of the book to return:")
         if title:
-            user = self.select_user()
-            if user:
-                self.library.return_book(title, user)
-
-    def admin_options(self):
-        # Admin menu
-        admin_window = tk.Toplevel(self.window)
-        admin_window.title("Admin Options")
-        admin_window.geometry("400x300")
-
-        tk.Label(admin_window, text="Admin Options", font=("Arial", 16)).pack(pady=10)
-
-        tk.Button(admin_window, text="Add Book", command=self.add_book).pack(pady=5)
-        tk.Button(admin_window, text="Remove Book", command=self.remove_book).pack(pady=5)
-        tk.Button(admin_window, text="View All Users", command=self.view_users).pack(pady=5)
+            self.library.return_book(title, self.current_user)
+        
+   
 
     def add_book(self):
         title = askstring("Add Book", "Enter the title of the book:")
         author = askstring("Add Book", "Enter the author of the book:")
         if title and author:
-            admin = self.select_user(is_admin=True)
-            if admin:
-                self.library.add_book(Book(title, author), admin)
+            self.library.add_book(Book(title, author), self.current_user)
 
     def remove_book(self):
         title = askstring("Remove Book", "Enter the title of the book to remove:")
         if title:
-            admin = self.select_user(is_admin=True)
-            if admin:
-                self.library.remove_book(title, admin)
+            self.library.remove_book(title, self.current_user)
 
     def view_users(self):
         users_info = "\n".join([f"{user.name} - {'Admin' if user.is_admin else 'User'}" for user in self.library.users])
         self.display_message(users_info)
 
-    def select_user(self, is_admin=False):
-        user_name = askstring("Select User", "Enter your name:")
-        if user_name:
-            for user in self.library.users:
-                if user.name.lower() == user_name.lower():
-                    if is_admin and not user.is_admin:
-                        messagebox.showerror("Error", "You do not have admin privileges!")
-                        return None
-                    return user
-            messagebox.showerror("Error", f"User '{user_name}' not found.")
-        return None
+    
 
     def display_message(self, message):
         messagebox.showinfo("Library Info", message)
-
 
 
 
@@ -179,7 +192,6 @@ user = User("Jonathan")
 
 if admin not in library.users:
     library.users.append(admin)
-if user not in library.users:
-    library.users.append(user)
+
 
 LibraryGUI(library)
